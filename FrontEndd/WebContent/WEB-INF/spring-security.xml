@@ -1,0 +1,32 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+ --><beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+<http auto-config="true">
+<intercept-url pattern="/admin**" access="hasrole('ROLE-ADMIN')"/>
+<access-denied-handler error-page="/error"/>
+<form-login
+	login-page="/login"
+	default-target-url="/register"
+	authentication-failure-url="/login?error"
+	username-parameter="Username"
+	password-parameter="Password"/>
+	<logout logout-success-url="/login?signup"/>
+	
+	<csrf/>
+
+</http>
+<authentication-manager>
+<authentication-provider>
+<user-service>
+<user name="ankita" password="123456" authorities="ROLE_USER"/>
+</user-service>
+<!-- <jdbc-user-service data-source-ref="datasource" user-by-Username-query="select Username,Password active from User where Username=?"
+where authorities-by-Username-query="select us.Username,ur.authority from User us,user_role ur where us.Uid=ur.Uid and us.Username=?"/> -->
+</authentication-provider>
+</authentication-manager>
+</beans:beans>
